@@ -34,6 +34,8 @@ class AutoRun:
             boy.action = 1
         elif boy.dir == -1:
            boy.action = 0
+        boy.size = 1.0
+        boy.speed =1
         print('auto 런 시작')
 
     @staticmethod
@@ -43,9 +45,14 @@ class AutoRun:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        boy.x += boy.dir * 5
-        if get_time() - boy.wait_time > 2:
+        boy.x += boy.dir * boy.speed
+
+        boy.speed +=0.05
+        boy.size +=1
+        if get_time() - boy.wait_time > 5:
             boy.state_machine.handle_Event(('TIME_OUT', 0))
+            boy.size, boy.speed = 1.0,1.0  # 시간이 초과되면 크기를 다시 1.0으로 초기화
+
         if (boy.x > 800):
             boy.dir = -1
             boy.action = 0
@@ -56,9 +63,9 @@ class AutoRun:
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100,
-                            boy.x, boy.y)
-        pass
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100,100,
+                            boy.x, boy.y+(boy.size/4), 100+boy.size , 100+boy.size)  # 크기를 적용하여 이미지를 그립니다
+
 
 class Run:
 
