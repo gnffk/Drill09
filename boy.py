@@ -30,7 +30,10 @@ def A(e):
 class AutoRun:
     @staticmethod
     def enter(boy, e):
-
+        if boy.dir ==1:
+            boy.action = 1
+        elif boy.dir == -1:
+           boy.action = 0
         print('auto 런 시작')
 
     @staticmethod
@@ -41,6 +44,8 @@ class AutoRun:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.x += boy.dir * 5
+        if get_time() - boy.wait_time > 2:
+            boy.state_machine.handle_Event(('TIME_OUT', 0))
         print('auto 런')
 
     @staticmethod
@@ -67,6 +72,7 @@ class Run:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.x += boy.dir * 5
+        boy.wait_time = get_time()  # 게임 시작한 후 경과 시간
         print('달리다')
 
     @staticmethod
@@ -118,7 +124,7 @@ class Idle:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        if get_time() - boy.wait_time > 2:
+        if get_time() - boy.wait_time > 5:
             boy.state_machine.handle_Event(('TIME_OUT', 0))
         print('IDle do')
     @staticmethod
