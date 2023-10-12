@@ -25,6 +25,26 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
+class AutoRun:
+
+    @staticmethod
+    def enter(boy, e):
+        print('auto 런 시작')
+
+    @staticmethod
+    def exit(boy, e):
+        print('auto 런 끝')
+
+    @staticmethod
+    def do(boy):
+
+        print('auto 런')
+
+    @staticmethod
+    def draw(boy):
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100,
+                            boy.x, boy.y)
+        pass
 
 class Run:
 
@@ -52,10 +72,6 @@ class Run:
                             boy.x, boy.y)
         pass
 
-
-
-
-
 class Sleep:
 
     @staticmethod
@@ -82,7 +98,6 @@ class Sleep:
             boy.image.clip_composite_draw(boy.frame * 100, boy.action * 100, 100, 100,
                             math.pi / 2, '', boy.x - 25, boy.y - 25, 100, 100)
         pass
-
 
 class Idle:
 
@@ -113,8 +128,6 @@ class Idle:
                             boy.x, boy.y)
         pass
 
-
-
 class StateMachine:
     def __init__(self, boy):
         self.boy = boy
@@ -142,8 +155,6 @@ class StateMachine:
                 self.cur_state.enter(self.boy, e)
                 return True
         return False
-
-
 
 class Boy:
     def __init__(self):
