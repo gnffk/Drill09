@@ -77,6 +77,7 @@ class Run:
             boy.dir, boy.action = -1, 0
         print('달리기 시작')
 
+
     @staticmethod
     def exit(boy, e):
         print('멈추다')
